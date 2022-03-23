@@ -1,37 +1,25 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing;
+use App\Controller\GreetingsController;
+use App\Controller\LeapYearController;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
-function is_leap_year($year = null): bool
-{
-    if (null === $year) {
-        $year = date('Y');
-    }
+$routes = new RouteCollection();
 
-    return 0 === $year % 400 || (0 === $year % 4 && 0 !== $year % 100);
-}
-
-$routes = new Routing\RouteCollection();
-
-$routes->add('leap_year', new Routing\Route('/is_leap_year/{year}', [
+$routes->add('leap_year', new Route('/is_leap_year/{year}', [
     'year' => null,
-    '_controller' => function ($request) {
-        if (is_leap_year($request->attributes->get('year'))) {
-            return new Response('Yep, this is a leap year!');
-        }
+    '_controller' => [new LeapYearController(), 'index'],
 
-        return new Response('Nope, this is not a leap year.');
-    }
 ]));
 
-$routes->add('hello', new Routing\Route('/hello/{name}', [
+$routes->add('hello', new Route('/hello/{name}', [
     'name' => 'World',
-    '_controller' => 'render_template'
+    '_controller' => [new GreetingsController(), 'hello']
 ]));
 
-$routes->add('bye', new Routing\Route('/bye', [
-    '_controller' => 'render_template'
+$routes->add('bye', new Route('/bye', [
+    '_controller' => [new GreetingsController(), 'bye']
 ]));
 
 return $routes;
