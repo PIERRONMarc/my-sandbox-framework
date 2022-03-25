@@ -1,1 +1,8 @@
-vendor
+###> framework ###
+/vendor/
+###< framework ###
+
+###> phpunit ###
+.phpunit.result.cache
+/phpunit.xml
+###< phpunit ###
