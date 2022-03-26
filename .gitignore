@@ -1,5 +1,6 @@
 ###> framework ###
 /vendor/
+/cache/
 ###< framework ###
 
 ###> phpunit ###
